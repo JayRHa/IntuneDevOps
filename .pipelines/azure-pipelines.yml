@@ -1,0 +1,86 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+variables:
+ - group: IntuneDev
+ - group: IntuneProd
+parameters:
+  - name: debug
+    displayName: Debug mode
+    type: boolean
+    default: false
+  - name: confType
+    displayName: Config Type
+    type: string
+    values:
+    - config-profile
+    - compliance-policy
+    - script
+    - remediation-script
+    - filter
+  - name: objectId
+    displayName: Object Id
+    type: string   
+
+pool:
+  vmImage: windows-latest
+  #vmImage: 'ubuntu-latest' 
+
+stages:
+- stage: validate
+  displayName: Show input
+  jobs:
+  - job: print_input
+    displayName: Print Input
+    steps:
+    - task: PowerShell@2
+      inputs:
+        targetType: 'inline'
+        script: |
+          Write-Host "-------------------------------"
+          Write-Host "Prod Tenant id: $(ProdTenantId)"
+          Write-Host "Dev Tenant id: $(DevTenantId)"
+          Write-Host "-------------------------------"
+          Write-Host "Intune object type to move: ${{parameters.confType}}"
+          Write-Host "Intune object id to move: ${{parameters.objectId}}"
+          Write-Host "Debug mode: ${{parameters.debug}}"
+
+- stage: getSourceObject
+  displayName: Get source object from dev
+  jobs:
+  - job: get_object_from_dev
+    displayName: Get object from dev
+    steps:
+    - task: PowerShell@2
+      inputs:
+        filePath: '$(System.DefaultWorkingDirectory)/Get-IntuneObject.ps1'
+        arguments: '-tenantId $(DevTenantId) -clientId $(DevAppId) -clientSecret $(DevAppSecret) -type ${{parameters.confType}} -objectId ${{parameters.objectId}}'
+    - task: CopyFiles@2
+      displayName: "Intune object to: $(build.artifactstagingdirectory)'"
+      inputs:
+        Contents: intuneObject.json
+        TargetFolder: $(build.artifactstagingdirectory)
+        flattenFolders: true
+    - publish: ' $(build.artifactstagingdirectory)'
+      displayName: 'Publish intune config json'
+      artifact: 'package'
+
+- stage: publishToProd
+  displayName: Publish object to prod
+  jobs:
+  # Download artifact
+  - job: publish_to_prod
+    displayName: Publish object to prod
+    steps:
+    - task: DownloadPipelineArtifact@2
+      displayName: 'Download Pipeline Artifact'
+      inputs:
+        artifactName: 'package'
+
+    - task: PowerShell@2
+      inputs:
+        filePath: '$(System.DefaultWorkingDirectory)/Deploy-IntuneObject.ps1'
+        arguments: '-tenantId $(ProdTenantId) -clientId $(ProdAppId) -clientSecret $(ProdAppSecret) -type ${{parameters.confType}} -path "$(Pipeline.Workspace)/intuneObject.json"'
+
