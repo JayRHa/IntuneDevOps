@@ -15,6 +15,10 @@
 - Version 0.1:
    - Support for Config Profiles, Compliance Policies, Filter, Remediation and Powershell scripts 
 
+## Description
+
+![Tool View](https://github.com/JayRHa/IntuneDevOps/blob/main/.images/devops.png)
+
 ## How does it work
 You can find all informations how to setup and how does it work in my blog post:
 https://jannikreinhard.com/
