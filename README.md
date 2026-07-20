@@ -1,77 +1,58 @@
-<!-- unified-readme:start -->
+<!-- jr-brand:start -->
 <div align="center">
-
-# Intune DevOps
-
-**DevOps pipeline integration for Microsoft Intune configuration management and deployment automation.**
-
-Build. Release. Govern.
-
-[![GitHub stars](https://img.shields.io/github/stars/JayRHa/IntuneDevOps?style=for-the-badge&logo=github&color=f4c542)](https://github.com/JayRHa/IntuneDevOps/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/JayRHa/IntuneDevOps?style=for-the-badge&logo=github&color=4078c0)](https://github.com/JayRHa/IntuneDevOps/network/members)
-[![GitHub issues](https://img.shields.io/github/issues/JayRHa/IntuneDevOps?style=for-the-badge&logo=github&color=d73a4a)](https://github.com/JayRHa/IntuneDevOps/issues)
-[![Contributors](https://img.shields.io/github/contributors/JayRHa/IntuneDevOps?style=for-the-badge&logo=github&color=28a745)](https://github.com/JayRHa/IntuneDevOps/graphs/contributors)
-
-[Check out my blog](https://jannikreinhard.com)
-<p>
-  <a href="https://jannikreinhard.com/">Blog</a> ·
-  <a href="https://www.linkedin.com/in/jannik-r/">LinkedIn</a> ·
-  <a href="https://x.com/jannik_reinhard">X</a>
+  <a href="https://jannikreinhard.com/">
+    <img src="https://raw.githubusercontent.com/JayRHa/.github/main/assets/readme/tool.svg" alt="Jannik Reinhard — AI, Cloud and Endpoint Management" width="100%">
+  </a>
+  <h1>Intune DevOps</h1>
+  <p><strong>DevOps pipeline integration for Microsoft Intune configuration management and deployment automation.</strong></p>
+  <p>
+  <a href="https://jannikreinhard.com/"><img src="https://img.shields.io/badge/Website-0A5FC0?style=flat-square&amp;logo=wordpress&amp;logoColor=white" alt="Website"></a>
+  <a href="https://github.com/JayRHa"><img src="https://img.shields.io/badge/GitHub-081427?style=flat-square&amp;logo=github&amp;logoColor=white" alt="GitHub"></a>
+  <a href="https://www.linkedin.com/in/jannik-r/"><img src="https://img.shields.io/badge/LinkedIn-0795FF?style=flat-square&amp;logo=linkedin&amp;logoColor=white" alt="LinkedIn"></a>
+  <a href="https://x.com/jannik_reinhard"><img src="https://img.shields.io/badge/X-081427?style=flat-square&amp;logo=x&amp;logoColor=white" alt="X"></a>
+  <a href="https://www.youtube.com/@ModernDevMgmt/featured"><img src="https://img.shields.io/badge/YouTube-0A5FC0?style=flat-square&amp;logo=youtube&amp;logoColor=white" alt="YouTube"></a>
 </p>
-
----
-
-`Endpoint Management` | `PowerShell` | `Public` | `Maintained`
-
+  <p><sub>Tool · App · CLI · PowerShell · Practical by design</sub></p>
 </div>
+<!-- jr-brand:end -->
 
-## What is this?
+## Overview
 
-Intune DevOps supports Microsoft Intune and endpoint management workflows such as automation, troubleshooting, remediation, deployment, or reporting.
+Intune DevOps exports Microsoft Intune objects into files that can be reviewed in source control and deployed through an Azure DevOps pipeline.
 
-## Project Context
+![Intune DevOps workflow](assets/devops.png)
 
-- Use it when Intune work should be scripted, packaged, synchronized, or made easier to repeat.
-- Most workflows start from repository assets, then move through Microsoft Graph, Intune, or device-side execution.
-- This repository is maintained as a practical project and reference asset.
+## Supported Objects
+
+- Device configuration profiles
+- Compliance policies
+- Assignment filters
+- Remediation scripts
+- PowerShell scripts
 
 ## How It Works
 
-The repository stores scripts or tooling, administrators configure or run them, Intune and Microsoft Graph apply the work, and endpoint results feed back into reports or follow-up actions.
+| Script | Purpose |
+| --- | --- |
+| `Get-IntuneObject.ps1` | Export supported objects from Microsoft Intune |
+| `Get-IntuneObjectId.ps1` | Resolve object identifiers |
+| `Deploy-IntuneObject.ps1` | Deploy an exported object |
+| `.pipelines/azure-pipelines.yml` | Example Azure DevOps pipeline |
 
-```mermaid
-flowchart LR
-    Repo[Repository assets] --> Admin[Administrator workflow]
-    Admin --> Graph[Microsoft Graph or Intune]
-    Graph --> Device[Managed endpoint]
-    Device --> Result[Detection, remediation, or report]
-    Result --> Review[Review and iterate]
-    Review --> Repo
-```
+Review the scripts and configure the required Microsoft Graph authentication before using the pipeline with a production tenant.
 
-## Quick Start
+## License
 
-1. Review the project context and workflow below.
-2. Clone the repository:
+This project is available under the terms in [LICENSE](LICENSE).
 
-   ```bash
-   git clone https://github.com/JayRHa/IntuneDevOps.git
-   ```
-
-3. Continue with the setup, usage, or workflow sections below.
+<!-- jr-brand-footer:start -->
 
 ---
-<!-- unified-readme:end -->
 
-## Change Log
----
-- Version 0.1:
-   - Support for Config Profiles, Compliance Policies, Filter, Remediation and Powershell scripts 
+<div align="center">
+  <p><sub>Built and maintained by <a href="https://jannikreinhard.com/">Jannik Reinhard</a> · Microsoft MVP for Security and AI Platform.</sub></p>
+  <p><a href="https://www.buymeacoffee.com/jannikreinf">Support the open-source work</a></p>
+  <p><strong>Stay healthy, Cheers Jannik</strong></p>
+</div>
 
-## Description
-
-![Tool View](https://github.com/JayRHa/IntuneDevOps/blob/main/assets/devops.png)
-
-## How does it work
-You can find all informations how to setup and how does it work in my blog post:
-https://jannikreinhard.com/
+<!-- jr-brand-footer:end -->
