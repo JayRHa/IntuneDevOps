@@ -1,7 +1,7 @@
 <!-- jr-brand:start -->
 <div align="center">
   <a href="https://jannikreinhard.com/">
-    <img src="https://raw.githubusercontent.com/JayRHa/.github/main/assets/readme/tool.svg" alt="Jannik Reinhard — Driving AI with passion" width="100%">
+    <img src="https://raw.githubusercontent.com/JayRHa/.github/main/assets/readme/brand-header.png" alt="Jannik Reinhard — Driving AI with passion" width="100%">
   </a>
   <h1>Intune DevOps</h1>
   <p><strong>DevOps pipeline integration for Microsoft Intune configuration management and deployment automation.</strong></p>
